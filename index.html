@@ -4,19 +4,22 @@
   <script>
     function fetchRegistration() {
       var regNumber = document.getElementById("regInput").value;
-      if (regNumber.length > 3) {  // Start search only after 3 characters
-        var url = "https://script.google.com/macros/s/your-script-id/exec?enterRegistration=" + encodeURIComponent(regNumber);
+      if (regNumber.length > 3) {
+        var url = "https://script.google.com/macros/s/AKfycbwM3MqocuD3DskaHQhPaNCPDxAMV_mKj0r05aqgBs5R9TC9-rZ0PxyaAm6ypZVCwG5v/exec?enterRegistration=" + encodeURIComponent(regNumber);
         
         fetch(url)
           .then(response => response.json())
           .then(data => {
             if (data.error) {
-              document.getElementById("result").innerHTML = "<b>Registration Not Found</b>";
+              document.getElementById("result").innerHTML = "<b>" + data.error + "</b>";
             } else {
               document.getElementById("result").innerHTML = 
                 "<b>Registration Found!</b><br>" +
-                "<b>Name:</b> " + data.name + "<br>" +
-                "<b>Animal Type:</b> " + data.animal + "<br>" +
+                "<b>Name:</b> " + data.firstName + " " + data.lastName + "<br>" +
+                "<b>Email:</b> " + data.email + "<br>" +
+                "<b>Phone:</b> " + data.phone + "<br>" +
+                "<b>Animal Name:</b> " + data.animalName + "<br>" +
+                "<b>Animal Type:</b> " + data.animalType + "<br>" +
                 "<b>Status:</b> " + data.status;
             }
           })
@@ -30,6 +33,7 @@
   </script>
 </head>
 <body>
+  <h2>Service Animal Registry Lookup</h2>
   <input type="text" id="regInput" placeholder="Enter Registration Number" onkeyup="fetchRegistration()">
   <p id="result"></p>
 </body>
