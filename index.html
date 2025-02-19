@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+    function fetchRegistration() {
+      var regNumber = document.getElementById("regInput").value;
+      if (regNumber.length > 3) {  // Start search only after 3 characters
+        var url = "https://script.google.com/macros/s/your-script-id/exec?enterRegistration=" + encodeURIComponent(regNumber);
+        
+        fetch(url)
+          .then(response => response.json())
+          .then(data => {
+            if (data.error) {
+              document.getElementById("result").innerHTML = "<b>Registration Not Found</b>";
+            } else {
+              document.getElementById("result").innerHTML = 
+                "<b>Registration Found!</b><br>" +
+                "<b>Name:</b> " + data.name + "<br>" +
+                "<b>Animal Type:</b> " + data.animal + "<br>" +
+                "<b>Status:</b> " + data.status;
+            }
+          })
+          .catch(error => {
+            document.getElementById("result").innerHTML = "<b>Error fetching data</b>";
+          });
+      } else {
+        document.getElementById("result").innerHTML = "";
+      }
+    }
+  </script>
+</head>
+<body>
+  <input type="text" id="regInput" placeholder="Enter Registration Number" onkeyup="fetchRegistration()">
+  <p id="result"></p>
+</body>
+</html>
