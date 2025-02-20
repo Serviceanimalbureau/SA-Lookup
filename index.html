@@ -49,12 +49,18 @@
       text-align: left;
       font-size: 16px;
     }
+    img {
+      margin-top: 10px;
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+    }
   </style>
   <script>
     function fetchRegistration() {
       var regNumber = document.getElementById("regInput").value.trim();
       if (regNumber.length > 3) {
-        var url = "https://script.google.com/macros/s/AKfycbwA6bHKXoDqCa509Pkwogobap4Yh_TQb0Y5PtGrhCWHNYzpY4-t4ZVBd2_O4HrVuMN6/exec?enterRegistration=" + encodeURIComponent(regNumber);
+        var url = "https://script.google.com/macros/s/AKfycbwtJZiVrTwPwtGnToA0ETdFMWU0SHAVsda2V-lvaK_iTZiChsmC5p5RSmPuuzLD-dTy/exec=" + encodeURIComponent(regNumber);
         
         document.getElementById("result").innerHTML = "<b>🔄 Verifying...</b>";
 
@@ -64,6 +70,7 @@
             if (data.error) {
               document.getElementById("result").innerHTML = "<div class='result-box'><b>❌ " + data.error + "</b></div>";
             } else {
+              let imageHTML = data.imageUrl ? `<img src="${data.imageUrl}" alt="Animal Image">` : "";
               document.getElementById("result").innerHTML = 
                 "<div class='result-box'>" +
                 "<b>✅ Registration Found!</b><br><br>" +
@@ -72,7 +79,8 @@
                 "<b>Phone:</b> " + data.phone + "<br>" +
                 "<b>Animal Name:</b> " + data.animalName + "<br>" +
                 "<b>Animal Type:</b> " + data.animalType + "<br>" +
-                "<b>Status:</b> " + data.status +
+                "<b>Status:</b> " + data.status + "<br>" +
+                imageHTML + 
                 "</div>";
             }
           })
