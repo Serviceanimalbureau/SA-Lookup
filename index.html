@@ -5,7 +5,7 @@
     function fetchRegistration() {
       var regNumber = document.getElementById("regInput").value;
       if (regNumber.length > 3) {
-        var url = "https://script.google.com/macros/s/AKfycbwM3MqocuD3DskaHQhPaNCPDxAMV_mKj0r05aqgBs5R9TC9-rZ0PxyaAm6ypZVCwG5v/exec?enterRegistration=" + encodeURIComponent(regNumber);
+        var url = "https://script.google.com/macros/s/AKfycbwA6bHKXoDqCa509Pkwogobap4Yh_TQb0Y5PtGrhCWHNYzpY4-t4ZVBd2_O4HrVuMN6/exec?enterRegistration=" + encodeURIComponent(regNumber);
         
         fetch(url)
           .then(response => response.json())
