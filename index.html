@@ -1,105 +1,92 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 20px;
-    }
-    .container {
-      background: white;
-      max-width: 500px;
-      margin: auto;
-      padding: 20px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-      border-radius: 10px;
-    }
-    h2 {
-      color: #333;
-    }
-    input {
-      padding: 10px;
-      font-size: 16px;
-      width: 80%;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      margin-top: 10px;
-    }
-    button {
-      margin-top: 15px;
-      padding: 10px 15px;
-      font-size: 16px;
-      color: white;
-      background-color: #007bff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-    .result-box {
-      margin-top: 20px;
-      padding: 10px;
-      background: #e8f0fe;
-      border-left: 5px solid #007bff;
-      text-align: left;
-      font-size: 16px;
-    }
-    img {
-      margin-top: 10px;
-      max-width: 100%;
-      border-radius: 10px;
-      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
-    }
-  </style>
-  <script>
-    function fetchRegistration() {
-      var regNumber = document.getElementById("regInput").value.trim();
-      if (regNumber.length > 3) {
-        var url = "https://script.google.com/macros/s/AKfycbwjFjlNn9sTGxcnMZVzMpTxmKx0uiXgbvjUrgM4D_uMS0UAyzbMHoEQyisDvX4VXdbZ/exec?enterRegistration=" + encodeURIComponent(regNumber);
-        
-        document.getElementById("result").innerHTML = "<b>🔄 Verifying...</b>";
-
-        fetch(url)
-          .then(response => response.json())
-          .then(data => {
-            if (data.error) {
-              document.getElementById("result").innerHTML = "<div class='result-box'><b>❌ " + data.error + "</b></div>";
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            margin: auto;
+        }
+        .input-field {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .button {
+            padding: 10px 20px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+    </style>
+    <script>
+        function fetchRegistration() {
+            var regNumber = document.getElementById("regInput").value;
+            if (regNumber.length > 3) {
+                var url = "https://script.google.com/macros/s/YOUR_NEW_WEB_APP_URL/exec?enterRegistration=" + encodeURIComponent(regNumber);
+                
+                fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        document.getElementById("result").innerHTML = `<b style="color:red;">❌ ${data.error}</b>`;
+                    } else {
+                        document.getElementById("result").innerHTML = `
+                            <h3>✅ Registration Found</h3>
+                            <p><b>Name:</b> ${data.firstName} ${data.lastName}</p>
+                            <p><b>Email:</b> ${data.email}</p>
+                            <p><b>Phone:</b> ${data.phone}</p>
+                            <p><b>Animal Name:</b> ${data.animalName}</p>
+                            <p><b>Animal Type:</b> ${data.animalType}</p>
+                            <p><b>Status:</b> ${data.status}</p>
+                            ${data.imageUrl ? `<img src="${data.imageUrl}" alt="Animal Image">` : ""}
+                        `;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById("result").innerHTML = `<b style="color:red;">❌ Error fetching data</b>`;
+                });
             } else {
-              let imageHTML = data.imageUrl ? `<img src="${data.imageUrl}" alt="Animal Image">` : "";
-              document.getElementById("result").innerHTML = 
-                "<div class='result-box'>" +
-                "<b>✅ Registration Found!</b><br><br>" +
-                "<b>Name:</b> " + data.firstName + " " + data.lastName + "<br>" +
-                "<b>Email:</b> " + data.email + "<br>" +
-                "<b>Phone:</b> " + data.phone + "<br>" +
-                "<b>Animal Name:</b> " + data.animalName + "<br>" +
-                "<b>Animal Type:</b> " + data.animalType + "<br>" +
-                "<b>Status:</b> " + data.status + "<br>" +
-                imageHTML + 
-                "</div>";
+                document.getElementById("result").innerHTML = "";
             }
-          })
-          .catch(error => {
-            document.getElementById("result").innerHTML = "<div class='result-box'><b>❌ Error fetching data</b></div>";
-          });
-      } else {
-        document.getElementById("result").innerHTML = "<div class='result-box'><b>⚠️ Please enter a valid Registration Number.</b></div>";
-      }
-    }
-  </script>
+        }
+    </script>
 </head>
 <body>
-  <div class="container">
-    <h2>🔍 Service Animal Registry Lookup</h2>
-    <input type="text" id="regInput" placeholder="Enter Registration Number">
-    <br>
-    <button onclick="fetchRegistration()">Verify</button>
-    <p id="result"></p>
-  </div>
+    <div class="container">
+        <h2>🔍 Service Animal Registry Lookup</h2>
+        <input type="text" id="regInput" class="input-field" placeholder="Enter Registration Number">
+        <button class="button" onclick="fetchRegistration()">Verify</button>
+        <div id="result"></div>
+    </div>
 </body>
 </html>
