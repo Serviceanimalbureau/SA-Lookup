@@ -52,7 +52,7 @@
         function fetchRegistration() {
             var regNumber = document.getElementById("regInput").value;
             if (regNumber.length > 3) {
-                var url = "https://script.google.com/macros/s/YOUR_NEW_WEB_APP_URL/exec?enterRegistration=" + encodeURIComponent(regNumber);
+                var url = "https://script.google.com/macros/s/AKfycbxiXrXUA0WvmB84kDPtf-fEoZdkNX3sKVXlisPulbpwNQMYUJhj4Vd_SVc6ryPCps1h/exec?enterRegistration=" + encodeURIComponent(regNumber);
                 
                 fetch(url)
                 .then(response => response.json())
