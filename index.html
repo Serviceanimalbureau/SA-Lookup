@@ -60,7 +60,7 @@
     function fetchRegistration() {
       var regNumber = document.getElementById("regInput").value.trim();
       if (regNumber.length > 3) {
-        var url = "https://script.google.com/macros/s/AKfycbwtJZiVrTwPwtGnToA0ETdFMWU0SHAVsda2V-lvaK_iTZiChsmC5p5RSmPuuzLD-dTy/exec" + encodeURIComponent(regNumber);
+        var url = "https://script.google.com/macros/s/AKfycbzyfEYmGno6h2LSKyONg9dzDGu6ose7thbkbMM6fJVXRPdxwWLsbMPOHB-Efjn8Btqa/exec?enterRegistration=" + encodeURIComponent(regNumber);
         
         document.getElementById("result").innerHTML = "<b>🔄 Verifying...</b>";
 
