@@ -1,6 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      max-width: 500px;
+      margin: auto;
+      padding: 20px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+    h2 {
+      color: #333;
+    }
+    input {
+      padding: 10px;
+      font-size: 16px;
+      width: 90%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+    p {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #007bff;
+    }
+    .result-box {
+      margin-top: 20px;
+      padding: 10px;
+      background: #e8f0fe;
+      border-left: 5px solid #007bff;
+      text-align: left;
+      font-size: 16px;
+    }
+  </style>
   <script>
     function fetchRegistration() {
       var regNumber = document.getElementById("regInput").value;
@@ -11,20 +52,22 @@
           .then(response => response.json())
           .then(data => {
             if (data.error) {
-              document.getElementById("result").innerHTML = "<b>" + data.error + "</b>";
+              document.getElementById("result").innerHTML = "<div class='result-box'><b>❌ " + data.error + "</b></div>";
             } else {
               document.getElementById("result").innerHTML = 
-                "<b>Registration Found!</b><br>" +
+                "<div class='result-box'>" +
+                "<b>✅ Registration Found!</b><br><br>" +
                 "<b>Name:</b> " + data.firstName + " " + data.lastName + "<br>" +
                 "<b>Email:</b> " + data.email + "<br>" +
                 "<b>Phone:</b> " + data.phone + "<br>" +
                 "<b>Animal Name:</b> " + data.animalName + "<br>" +
                 "<b>Animal Type:</b> " + data.animalType + "<br>" +
-                "<b>Status:</b> " + data.status;
+                "<b>Status:</b> " + data.status +
+                "</div>";
             }
           })
           .catch(error => {
-            document.getElementById("result").innerHTML = "<b>Error fetching data</b>";
+            document.getElementById("result").innerHTML = "<div class='result-box'><b>❌ Error fetching data</b></div>";
           });
       } else {
         document.getElementById("result").innerHTML = "";
@@ -33,9 +76,10 @@
   </script>
 </head>
 <body>
-  <h2>Service Animal Registry Lookup</h2>
-  <input type="text" id="regInput" placeholder="Enter Registration Number" onkeyup="fetchRegistration()">
-  <p id="result"></p>
+  <div class="container">
+    <h2>🔍 Service Animal Registry Lookup</h2>
+    <input type="text" id="regInput" placeholder="Enter Registration Number" onkeyup="fetchRegistration()">
+    <p id="result"></p>
+  </div>
 </body>
 </html>
-
